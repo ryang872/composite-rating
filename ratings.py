@@ -2,6 +2,8 @@ import os
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from teams import nba_teams
@@ -19,13 +21,34 @@ from teams import nba_teams
 # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
 # service = Service(executable_path="CHROMEDRIVER_PATH")
-chrome_options = webdriver.ChromeOptions()
+# chrome_options = webdriver.ChromeOptions()
 # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-chrome_options.add_argument("--headless=new")
-chrome_options.add_argument("--disable-dev-shm-usage")
-chrome_options.add_argument("--no-sandbox")
-driver = webdriver.Chrome(options=chrome_options)
+# chrome_options.add_argument("--headless=new")
+# chrome_options.add_argument("--disable-dev-shm-usage")
+# chrome_options.add_argument("--no-sandbox")
+# driver = webdriver.Chrome(options=chrome_options)
 
+def  load_driver():
+	options = webdriver.FirefoxOptions()
+	
+	# enable trace level for debugging 
+	options.log.level = "trace"
+
+	options.add_argument("-remote-debugging-port=9224")
+	options.add_argument("-headless")
+	options.add_argument("-disable-gpu")
+	options.add_argument("-no-sandbox")
+
+	binary = FirefoxBinary(os.environ.get('FIREFOX_BIN'))
+
+	firefox_driver = webdriver.Firefox(
+		firefox_binary=binary,
+		executable_path=os.environ.get('GECKODRIVER_PATH'),
+		options=options)
+
+	return firefox_driver
+
+driver = load_driver()
 
 
 # INPREDICTABLE
