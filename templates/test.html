@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"> -->
+        <!-- {% assets "scss_all" %}
+        <link rel=stylesheet type=text/css href="{{ ASSET_URL }}">
+        {% endassets %} -->
+        <link rel="stylesheet" href="all.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="table.js"></script>
+        <script src="navbar.js"></script>
+    </head>
+    <body>  
+        <header>
+            <nav class="navbar">
+                <a href="#" class="logo">WEB.</a>
+    
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Skill</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Service</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Contact</a>
+                    </li>
+                </ul>
+    
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </header>
+                      
+      
+        <div class="container">            
+            <div class="table">
+                <div class="table-header">
+                    <div class="small-width"><a id="rank" class="filter__link filter__link--number" href="#">#</a></div>
+                    <div class="header__item"><a id="team" class="filter__link" href="#">Team</a></div>
+                    <div class="header__item"><a id="composite" class="filter__link filter__link--number" href="#">Composite</a></div>
+                    <div class="header__item"><a id="dunks_and_threes" class="filter__link filter__link--number" href="#">Dunks and Threes</a></div>
+                    <div class="header__item"><a id="inpredictable" class="filter__link filter__link--number" href="#">Inpredictable</a></div>
+                    <div class="header__item"><a id="bball_reference" class="filter__link filter__link--number" href="#">BBall Reference</a></div>
+                </div>
+                <div class="table-content">	
+                    {% for team, rating in ratings.items() %}
+                    <div class="table-row">
+                        <div class="small-width">{{ loop.index }}</div>		
+                        <div class="table-data">{{ team }}
+                            <img class="logo" src="{{ url_for('static', filename='images/logos/' + team + '.svg') }}" alt="{{ team }} logo">
+                        </div>
+                        <div class="table-data">{{ rating.average_rating }}</div>
+                        <div class="table-data">{{ rating.dunks_rating }}</div>
+                        <div class="table-data">{{ rating.ind_rating }}</div>
+                        <div class="table-data">{{ rating.bbr_rating }}</div>				
+                    </div>
+                    {% endfor %}			
+                </div>	
+            </div>
+        </div>
+    </body>
+</html>
+
+
+
+
+
+<div class="container">   
+                 
+    <div class="table">
+        <div class="table-header">
+            <div class="small-width"><a id="rank" class="filter__link filter__link--number" href="#">#</a></div>
+            <div class="header__item"><a id="team" class="filter__link" href="#">Team</a></div>
+            <div class="header__item"><a id="composite" class="filter__link filter__link--number" href="#">Composite</a></div>
+            <div class="header__item"><a id="dunks_and_threes" class="filter__link filter__link--number" href="#">Dunks and Threes</a></div>
+            <div class="header__item"><a id="inpredictable" class="filter__link filter__link--number" href="#">Inpredictable</a></div>
+            <div class="header__item"><a id="bball_reference" class="filter__link filter__link--number" href="#">BBall Reference</a></div>
+        </div>
+        <div class="table-content">	
+            {% for team, rating in ratings.items() %}
+            <div class="table-row">
+                <div class="small-width">{{ loop.index }}</div>		
+                <div class="table-data">{{ team }}
+                    <img class="logo" src="{{ url_for('static', filename='images/logos/' + team + '.svg') }}" alt="{{ team }} logo">
+                </div>
+                <div class="table-data">{{ rating.average_rating }}</div>
+                <div class="table-data">{{ rating.dunks_rating }}</div>
+                <div class="table-data">{{ rating.ind_rating }}</div>
+                <div class="table-data">{{ rating.bbr_rating }}</div>				
+            </div>
+            {% endfor %}			
+        </div>	
+    </div>
+    
+</div>
+
+
+<!-- <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top"">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ml-auto" >
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Pricing</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+    </header> -->
+
+     <!-- <tr>
+                        <th class="sorting-link sorting-number">#</th>
+                        <th class="sorting-link" data-abbr="Team">Team</th>
+                        <th class="sorting-link sorting-number" data-abbr="Comp">Composite</th>
+                        <th class="sorting-link sorting-number" data-abbr="D&3">Dunks and Threes</th>
+                        <th class="sorting-link sorting-number" data-abbr="Inpr">Inpredictable</th>
+                        <th class="sorting-link sorting-number" data-abbr="BBR">BBall Reference</th>
+                    </tr> -->
+
+
+<!-- <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top d-flex justify-content-center">
+            <a class="navbar-brand" href="#">NBA Composite Rating</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ml-auto" >
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Pricing</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+    </header>     -->

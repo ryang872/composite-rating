@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">             
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">         
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="{{ url_for('static', filename='js/table.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/navbar.js') }}"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>        
+    </head>  
+    <body>       
+        
+        <div class="container">   
+            <table id="sortTable" class="table table-hover table-dark" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th class="sorting-link sorting-number" data-abbr="#">#</th>
+                        <th class="sorting-link" data-abbr="Team">Team</th>
+                        <th class="sorting-link sorting-number" data-abbr="Comp">Composite</th>
+                        <th class="sorting-link sorting-number" data-abbr="D&3">Dunks and Threes</th>
+                        <th class="sorting-link sorting-number" data-abbr="Inpr">Inpredictable</th>
+                        <th class="sorting-link sorting-number" data-abbr="BBR">BBall Reference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for team, rating in ratings.items() %}
+                    <tr>
+                        <td class="small-table">{{ loop.index }}</th>
+                        <td>{{ team }} <img class="logo" src="{{ url_for('static', filename='images/logos/' + team + '.svg') }}" alt="{{ team }} logo"></td>
+                        <td>{{ rating.average_rating }}</td>
+                        <td>{{ rating.dunks_rating }}</td>
+                        <td>{{ rating.ind_rating }}</td>
+                        <td>{{ rating.bbr_rating }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+
+  
+
+      
+    </body>
+</html>
+
+
+
+

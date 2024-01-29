@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
+
+*, *:before, *:after {
+	box-sizing:border-box;
+}
+
+
+h1,h2,h3,h4,h5,h6 {
+	margin:0;
+}
+
+body {
+    padding-top: 70px;
+	font-family:'Source Sans Pro', sans-serif;
+	margin:0;
+    background-color: #000000;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);    
+}
+
+.navbar.navbar-light.bg-light {
+    background-color: #17408b !important; 
+}
+
+.containter {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.small-table {
+    width: 50px;
+    font-size: .85rem;
+    text-align: center;
+}
+
+.logo {
+    margin-left: 2px;
+    width: 22px;
+}
+
+.sorting-link {
+    cursor: pointer; 
+    text-decoration: none; 
+    color: inherit; 
+    transition: color 0.2s ease-in-out; 
+}
+
+.sorting-link:hover {
+    text-decoration: none !important;
+    color: #17408b !important; 
+}
+
+.sorting-link:focus {
+	outline:none;
+}
+
+/* Style for table headers */
+#sortTable thead th {
+    cursor: pointer; 
+    background-color: #333; 
+    color: #fff; 
+   
+}
+
+/* Style for headers when they are actively being used for sorting */
+.sorting-active {
+    background-color: #00cc3d; 
+    color: #fff; 
+}
+
+/* Style for the cells in the active column */
+.active-column {
+    background-color: #333; 
+}
+
+/* CSS */
+@media screen and (max-width: 768px) {
+    .sorting-link {
+        font-size: 0;
+    }
+    
+    .sorting-link::before {
+        content: attr(data-abbr);
+        font-size: initial;
+    }
+
+    .navbar-nav {
+        text-align: center;
+    }
+}
+
