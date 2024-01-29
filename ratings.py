@@ -15,7 +15,7 @@ from teams import nba_teams
 # chrome_options.add_argument("--window-size=1280x1696")
 # driver = webdriver.Chrome(service=service, options=chrome_options)
 
-## For local testing
+# For local testing
 # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
 service = Service(executable_path="CHROMEDRIVER_PATH")
@@ -24,7 +24,7 @@ chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 chrome_options.add_argument("--headless=new")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--no-sandbox")
-driver = webdriver.Chrome(service=service, chrome_options=chrome_options)
+driver = webdriver.Chrome(service=service, options=chrome_options)
 
 
 
