@@ -1,4 +1,3 @@
-import os
 import zoneinfo
 from flask import Flask, render_template
 from apscheduler.schedulers.background import BackgroundScheduler
