@@ -1,7 +1,7 @@
 import os
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from webdriver_manager.chrome import ChromeDriverManager
@@ -28,25 +28,22 @@ from teams import nba_teams
 # chrome_options.add_argument("--no-sandbox")
 # driver = webdriver.Chrome(options=chrome_options)
 
-def  load_driver():
-	options = webdriver.FirefoxOptions()
-	
-	# enable trace level for debugging 
-	options.log.level = "trace"
 
-	options.add_argument("-remote-debugging-port=9224")
-	options.add_argument("-headless")
-	options.add_argument("-disable-gpu")
-	options.add_argument("-no-sandbox")
+def load_driver():
+    options = webdriver.FirefoxOptions()
 
-	binary = FirefoxBinary(os.environ.get('FIREFOX_BIN'))
+    options.add_argument("-remote-debugging-port=9224")
+    options.add_argument("-headless=new")
+    options.add_argument("-disable-gpu")
+    options.add_argument("-no-sandbox")
+    options.binary_location = os.environ.get('FIREFOX_BIN')
 
-	firefox_driver = webdriver.Firefox(
-		firefox_binary=binary,
-		executable_path=os.environ.get('GECKODRIVER_PATH'),
-		options=options)
+    service = Service(os.environ.get('GECKODRIVER_PATH'))
 
-	return firefox_driver
+    firefox_driver = webdriver.Firefox(service=service, options=options)
+    
+    return firefox_driver
+
 
 driver = load_driver()
 
