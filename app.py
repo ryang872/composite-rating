@@ -1,17 +1,18 @@
 import os
+import zoneinfo
+from gevent.pywsgi import WSGIServer
 from flask import Flask, render_template
-from flask_apscheduler import APScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
 from flask_assets import Environment, Bundle
 from ratings import indScraper, dunksScraper, bbrScraper, ratingsCalculator, driver, get_ratings
 
-class Config:
-    SCHEDULER_API_ENABLED = True
 
 app = Flask(__name__, static_url_path='/static') 
-app.config.from_object(Config())
+# app.config.from_object(Config())
 
-scheduler = APScheduler()
-scheduler.init_app(app)
+my_timezone = zoneinfo.ZoneInfo("America/Chicago")
+scheduler = BackgroundScheduler(timezone=my_timezone)
+
 
 # Function to scrape and calculate ratings
 def scrape_and_calculate_ratings():
@@ -28,10 +29,10 @@ def scrape_and_calculate_ratings():
     # Store the ratings in the app config
     app.config['RATINGS'] = ratings
 
-# Schedule the function to run once a day at the specified time
-scheduler.add_job(id='Scheduled Task', func=scrape_and_calculate_ratings, trigger='cron', hour=9, minute=0)
-
+# Run function once at startup then schedule it to run once a day at the specified time
 scrape_and_calculate_ratings()
+scheduler.add_job(scrape_and_calculate_ratings, 'cron', hour=9, minute=0)
+scheduler.start()
 
 @app.route('/', methods=['GET'])
 def show_ratings():
@@ -39,7 +40,3 @@ def show_ratings():
     ratings = app.config.get('RATINGS', [])
     return render_template('index.html', ratings=ratings)
 
-if __name__ == '__main__':
-    scheduler.start()
-    port = int(os.environ.get('PORT', 5000))
-    app.run(debug=True, host='0.0.0.0', port=port)
