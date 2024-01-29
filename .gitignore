@@ -154,4 +154,4 @@ cython_debug/
 
 scratch.py
 test.py
-template/test.html
+templates/test.html
