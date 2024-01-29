@@ -36,9 +36,10 @@ def load_driver():
     options.add_argument("-headless=new")
     options.add_argument("-disable-gpu")
     options.add_argument("-no-sandbox")
-    options.binary_location = os.environ.get('FIREFOX_BIN')
+    firefox_bin = os.environ.get('FIREFOX_BIN')
+    options.binary_location = firefox_bin
 
-    service = Service(os.environ.get('GECKODRIVER_PATH'))
+    service = Service(executable_path=os.environ.get('GECKODRIVER_PATH'))
 
     firefox_driver = webdriver.Firefox(service=service, options=options)
     
