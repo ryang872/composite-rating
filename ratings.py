@@ -16,44 +16,14 @@ options.add_argument("--headless=new")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--no-sandbox")
 options.add_argument('--remote-debugging-pipe')
-# options.add_argument("--window-size=1280x1696")
+options.addArguments("--disable-gpu")
 
-# service = Service(executable_path="chromedriver.exe")
 driver = webdriver.Chrome(options=options)
 
 
-
-
 # For local testing
-# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-# service = Service(executable_path="CHROMEDRIVER_PATH")
-# chrome_options = webdriver.ChromeOptions()
-# chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-# chrome_options.add_argument("--headless=new")
-# chrome_options.add_argument("--disable-dev-shm-usage")
-# chrome_options.add_argument("--no-sandbox")
-# driver = webdriver.Chrome(options=chrome_options)
-
-
-# def load_driver():
-#     options = webdriver.FirefoxOptions()
-
-#     options.add_argument("-remote-debugging-port=9224")
-#     options.add_argument("-headless=new")
-#     options.add_argument("-disable-gpu")
-#     options.add_argument("-no-sandbox")
-#     firefox_bin = os.environ.get('FIREFOX_BIN')
-#     options.binary_location = firefox_bin
-
-#     service = Service(executable_path=os.environ.get('GECKODRIVER_PATH'))
-
-#     firefox_driver = webdriver.Firefox(service=service, options=options)
-    
-#     return firefox_driver
-
-
-# driver = load_driver()
 
 
 # INPREDICTABLE
