@@ -1,4 +1,5 @@
 import os
+import time
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.service import Service
@@ -6,8 +7,9 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
 from teams import nba_teams
-import chromedriver_binary
+import chromedriver_autoinstaller
 
 
 options = webdriver.ChromeOptions()
@@ -35,6 +37,8 @@ class indScraper:
 
     def scrape_indratings(self):
         self.driver.get(self.url)
+        timeout = 10
+        WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((By.TAG_NAME, "body")))
 
         # Find the third 'tr' element and the next 29 'tr' elements
         tr_elements = self.driver.find_elements(By.XPATH, '(//tbody/tr)[position() >= 3 and position() <= 32]')
@@ -63,6 +67,8 @@ class bbrScraper:
 
     def scrape_bbratings(self):
         self.driver.get(self.url)
+        timeout = 10
+        WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((By.TAG_NAME, "body")))
         tr_elements = self.driver.find_elements(By.XPATH, '//tbody/tr')
 
         # Loop through each 'tr' element
@@ -95,6 +101,8 @@ class dunksScraper:
     def scrape_dddratings(self):
         # Navigate the webdriver to the URL
         self.driver.get(self.url)
+        timeout = 10
+        WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((By.TAG_NAME, "body")))
 
         rating_elements = self.driver.find_elements(By.XPATH, '//tr/td[3]/div[@class="wrap svelte-1u8efr8"]/div[1]')
         team_elements = self.driver.find_elements(By.XPATH, '//tr/td[@class="team svelte-pxvppp"]/div/div[@class="team-alias svelte-pxvppp"]')
