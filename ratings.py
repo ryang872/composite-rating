@@ -148,7 +148,7 @@ def scrape_and_calculate_ratings():
 def send_ratings_to_flask_app(ratings):
     load_dotenv()
     api_key = os.environ.get('API_KEY')
-    url = 'https://your-heroku-app.herokuapp.com/update-ratings'
+    url = 'https://nba-composite-rating-dd341f3c2148.herokuapp.com/'
     headers = {'API-Key': api_key}
     response = requests.post(url, json={'ratings': ratings}, headers=headers)
     if response.status_code == 200:
