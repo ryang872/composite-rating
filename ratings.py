@@ -11,19 +11,27 @@ from selenium.webdriver.support.ui import WebDriverWait
 from teams import nba_teams
 
 
-options = webdriver.ChromeOptions()
-
-options.add_argument("--headless=new")
-options.add_argument("--disable-dev-shm-usage")
-options.add_argument("--no-sandbox")
-options.add_argument('--remote-debugging-pipe')
-options.add_argument("--disable-gpu")
+# options = webdriver.ChromeOptions()
+# options.add_argument("--headless=new")
+# options.add_argument("--disable-dev-shm-usage")
+# options.add_argument("--no-sandbox")
+# options.add_argument('--remote-debugging-pipe')
+# options.add_argument("--disable-gpu")
 
 # driver = webdriver.Chrome(options=options)
 
+options = webdriver.ChromeOptions()
+options.add_argument("--headless")
+options.add_argument("--disable-gpu")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+
+options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+service = Service()
+driver = webdriver.Chrome(service=service, options=options)
 
 # For local testing
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
 
 
