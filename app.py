@@ -38,3 +38,5 @@ def show_ratings():
     ratings = app.config.get('RATINGS', [])
     return render_template('index.html', ratings=ratings)
 
+if __name__ == '__main__':
+    app.run()
