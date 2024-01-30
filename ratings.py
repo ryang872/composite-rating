@@ -9,7 +9,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from teams import nba_teams
-import chromedriver_autoinstaller
 
 
 options = webdriver.ChromeOptions()
@@ -20,11 +19,11 @@ options.add_argument("--no-sandbox")
 options.add_argument('--remote-debugging-pipe')
 options.add_argument("--disable-gpu")
 
-driver = webdriver.Chrome(options=options)
+# driver = webdriver.Chrome(options=options)
 
 
 # For local testing
-# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
 
 
@@ -36,9 +35,7 @@ class indScraper:
         self.ind_dict = {}
 
     def scrape_indratings(self):
-        self.driver.get(self.url)
-        timeout = 10
-        WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((By.TAG_NAME, "body")))
+        self.driver.get(self.url)        
 
         # Find the third 'tr' element and the next 29 'tr' elements
         tr_elements = self.driver.find_elements(By.XPATH, '(//tbody/tr)[position() >= 3 and position() <= 32]')
@@ -67,8 +64,7 @@ class bbrScraper:
 
     def scrape_bbratings(self):
         self.driver.get(self.url)
-        timeout = 10
-        WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((By.TAG_NAME, "body")))
+        
         tr_elements = self.driver.find_elements(By.XPATH, '//tbody/tr')
 
         # Loop through each 'tr' element
@@ -101,9 +97,7 @@ class dunksScraper:
     def scrape_dddratings(self):
         # Navigate the webdriver to the URL
         self.driver.get(self.url)
-        timeout = 10
-        WebDriverWait(driver, timeout).until(EC.visibility_of_element_located((By.TAG_NAME, "body")))
-
+        
         rating_elements = self.driver.find_elements(By.XPATH, '//tr/td[3]/div[@class="wrap svelte-1u8efr8"]/div[1]')
         team_elements = self.driver.find_elements(By.XPATH, '//tr/td[@class="team svelte-pxvppp"]/div/div[@class="team-alias svelte-pxvppp"]')
 
