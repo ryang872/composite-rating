@@ -10,10 +10,12 @@ from selenium.webdriver.common.by import By
 from teams import nba_teams
 
 options = webdriver.ChromeOptions()
-options.add_argument("--headless=new")
+options.add_argument("--headless")
 options.add_argument("--no-sandbox")
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+options.add_argument("--disable-dev-shm-usage")
 
+driver = webdriver.Chrome(options=options)
+# driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
 # INPREDICTABLE
 class indScraper:
     def __init__(self,driver):
@@ -148,7 +150,7 @@ def scrape_and_calculate_ratings():
 def send_ratings_to_flask_app(ratings):
     load_dotenv()
     api_key = os.environ.get('API_KEY')
-    url = 'https://nba-composite-rating-dd341f3c2148.herokuapp.com/'
+    url = 'https://nba-composite-rating-dd341f3c2148.herokuapp.com/upload-ratings'
     headers = {'API-Key': api_key}
     response = requests.post(url, json={'ratings': ratings}, headers=headers)
     if response.status_code == 200:
@@ -159,6 +161,8 @@ def send_ratings_to_flask_app(ratings):
 
 # If this script is run directly, scrape, calculate, and send ratings
 if __name__ == '__main__':
+    print("Getting Ratings")
     ratings = scrape_and_calculate_ratings()
+    print("Got Ratings")
     send_ratings_to_flask_app(ratings)
 
