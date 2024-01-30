@@ -28,7 +28,7 @@ options.add_argument("--disable-dev-shm-usage")
 
 options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
 service = Service()
-driver = webdriver.Chrome(service=service, options=options)
+driver = webdriver.Chrome(options=options)
 
 # For local testing
 # driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
