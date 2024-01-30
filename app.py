@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, send_from_directory
 
 app = Flask(__name__, static_url_path='/static') 
 
@@ -22,5 +22,6 @@ def update_ratings():
     app.config['RATINGS'] = ratings.get('ratings', {})
     return jsonify({'message': 'Ratings updated successfully'}), 200
 
-# if __name__ == '__main__':
-#     app.run()
+@app.route('/static/<path:filename>')
+def static_files(filename):
+    return send_from_directory(app.static_folder, filename, cache_timeout=31536000)
