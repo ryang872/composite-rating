@@ -7,16 +7,17 @@ from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from teams import nba_teams
+import chromedriver_binary 
 
 options = webdriver.ChromeOptions()
 
 options.add_argument("--headless=new")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--no-sandbox")
-options.add_argument("--window-size=1280x1696")
+# options.add_argument("--window-size=1280x1696")
 
-service = Service(executable_path="chromedriver.exe")
-driver = webdriver.Chrome(service=service, options=options)
+# service = Service(executable_path="chromedriver.exe")
+driver = webdriver.Chrome(options=options)
 
 
 
