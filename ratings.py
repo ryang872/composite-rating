@@ -7,8 +7,8 @@ from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from teams import nba_teams
-import chromedriver_binary_auto
- 
+import chromedriver_binary
+
 
 options = webdriver.ChromeOptions()
 
