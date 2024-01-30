@@ -1,41 +1,18 @@
 import os
 import time
+import json
+import requests
+from dotenv import load_dotenv
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.service import Service
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from teams import nba_teams
-
-
-# options = webdriver.ChromeOptions()
-# options.add_argument("--headless=new")
-# options.add_argument("--disable-dev-shm-usage")
-# options.add_argument("--no-sandbox")
-# options.add_argument('--remote-debugging-pipe')
-# options.add_argument("--disable-gpu")
-
-# driver = webdriver.Chrome(options=options)
 
 options = webdriver.ChromeOptions()
 options.add_argument("--headless=new")
-options.add_argument("--disable-gpu")
 options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage")
-# options.add_argument("--remote-debugging-port=9222")
-options.add_argument('--remote-debugging-pipe')
-# binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-options.binary_location = "/app/.apt/opt/google/chrome/chrome"
-service = Service()
-driver = webdriver.Chrome(options=options)
-
-# For local testing
-# driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-
-
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
 # INPREDICTABLE
 class indScraper:
@@ -154,3 +131,34 @@ class ratingsCalculator:
 def get_ratings(scraper_class, scrape_method):
     scraper = scraper_class(driver)
     return getattr(scraper, scrape_method)()
+
+
+def scrape_and_calculate_ratings():
+    bbr_dict = get_ratings(bbrScraper, 'scrape_bbratings')
+    dunks_dict = get_ratings(dunksScraper, 'scrape_dddratings')
+    ind_dict = get_ratings(indScraper, 'scrape_indratings')
+
+    calculator = ratingsCalculator(bbr_dict, dunks_dict, ind_dict)
+    calculator.calculate_and_sort_ratings()
+    ratings = calculator.get_sorted_ratings()
+
+    return ratings
+
+# Function to send ratings to your Flask app
+def send_ratings_to_flask_app(ratings):
+    load_dotenv()
+    api_key = os.environ.get('API_KEY')
+    url = 'https://your-heroku-app.herokuapp.com/update-ratings'
+    headers = {'API-Key': api_key}
+    response = requests.post(url, json={'ratings': ratings}, headers=headers)
+    if response.status_code == 200:
+        print("Ratings updated successfully.")
+    else:
+        print(f"Failed to update ratings. Status code: {response.status_code}, Response: {response.text}")
+
+
+# If this script is run directly, scrape, calculate, and send ratings
+if __name__ == '__main__':
+    ratings = scrape_and_calculate_ratings()
+    send_ratings_to_flask_app(ratings)
+
