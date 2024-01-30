@@ -16,6 +16,9 @@ options.add_argument("--disable-dev-shm-usage")
 
 driver = webdriver.Chrome(options=options)
 # driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+
+load_dotenv()
+
 # INPREDICTABLE
 class indScraper:
     def __init__(self,driver):
@@ -147,10 +150,10 @@ def scrape_and_calculate_ratings():
     return ratings
 
 # Function to send ratings to your Flask app
-def send_ratings_to_flask_app(ratings):
-    load_dotenv()
+def send_ratings_to_flask_app(ratings):    
     api_key = os.environ.get('API_KEY')
-    url = 'https://nba-composite-rating-dd341f3c2148.herokuapp.com/upload-ratings'
+    print("Using API Key:", api_key)
+    url = 'https://nba-composite-rating-dd341f3c2148.herokuapp.com/update-ratings'
     headers = {'API-Key': api_key}
     response = requests.post(url, json={'ratings': ratings}, headers=headers)
     if response.status_code == 200:

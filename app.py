@@ -10,6 +10,7 @@ def show_ratings():
 
 @app.route('/update-ratings', methods=['POST'])
 def update_ratings():
+    print("Expected API Key:", os.environ.get('API_KEY'))
     api_key = request.headers.get('API-Key')
     if api_key != os.environ.get('API_KEY'):
         return jsonify({'error': 'Unauthorized'}), 401
